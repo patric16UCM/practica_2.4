@@ -8,23 +8,28 @@ int main(int argc, char * argv[]){
     int p_h[2];
     int h_p[2];
     char *buffer[100];
-    pipe (p_h);
-    pipe (h_p);
+    pipe (p_h); //escribe el padre y lee el hijo
+    pipe (h_p);//escribe el hijo y lee el padre
     pid_t pid = fork();
     if(pid == 0){ //hijo
        //recibimos el mensaje, lo escribimos por la pantalla 
-        read(h_p[], buffer,100);
-         n_mensajes++;
         close(fd[1]);
-        dup2(fd[0],0);
-        close(fd[0]);
+        n_mensajes++;
+        dup2(p_h[0],0);
+        read(p_h[0], buffer,100);
+        close(p_h[0]);
+         close();
+        dup2(h_p[1],1);
         if(n_mensajes==10){
             //usando write avisamos de que termine
-            write(p_h[],'q', strlen(char)+1); 
+          
+            write(h_p[1],'q', strlen(char)+1); 
         }
-
-        //escribimos en la h_p una l
-       write(h_p[],'l', strlen(char)+1); 
+        else{
+            write(h_p[],'l', strlen(char)+1); 
+        }
+   
+       close();
     }
     else{
         read(p_h[],buffer,100):
